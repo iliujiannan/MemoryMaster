@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
 
 
-    protected abstract void mInitComponent();
+    protected abstract void initComponent();
 
     @Override
     public void showLoading() {
