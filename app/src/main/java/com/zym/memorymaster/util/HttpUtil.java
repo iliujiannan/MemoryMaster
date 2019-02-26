@@ -21,7 +21,7 @@ public class HttpUtil{
                 .readTimeout(20, TimeUnit.SECONDS)
                 .build();
     }
-    public void mDoPost(List<String> keys, List<String> values, String url, Callback callback) {
+    public void doPost(List<String> keys, List<String> values, String url, Callback callback) {
         FormBody.Builder form = new FormBody.Builder();
         for (int i = 0; i < keys.size(); i++) {
             form.add(keys.get(i), values.get(i));
@@ -33,7 +33,7 @@ public class HttpUtil{
                 .build();
         client.newCall(request).enqueue(callback);
     }
-    public void mDoPost(FormBody.Builder form, String url, Callback callback) {
+    public void doPost(FormBody.Builder form, String url, Callback callback) {
         Request request = new Request.Builder()//创建Request 对象。
                 .url(baseUri+url)
                 .post(form.build())//传递请求体

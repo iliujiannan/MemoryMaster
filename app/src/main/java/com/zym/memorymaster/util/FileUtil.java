@@ -94,11 +94,11 @@ public class FileUtil {
 
         return result.toString();
     }
-    public static String mGetRootPath() {
+    public static String getRootPath() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath();
     }
 
-    public static boolean mCreateCacheDir(String path) {
+    public static boolean createCacheDir(String path) {
 
         System.out.println(path);
 
@@ -112,7 +112,7 @@ public class FileUtil {
         return true;
     }
 
-    public static boolean mSaveFile(String content, String path){
+    public static boolean saveFile(String content, String path){
         File file = new File(path);
         if(file.exists()){
             file.delete();
