@@ -2,6 +2,8 @@
     <string name="app_name">记忆大师</string>
     <string name="app_right">Copyright © 2019 Orange Technology. All Rights Reserved</string>
     <string name="app_reg_declaration">点击注册代表同意橘子科技《隐私协议》</string>
+    <string name="app_log_declaration">点击登录代表同意橘子科技《隐私协议》</string>
+    <string name="app_slogen">记忆，像吃橘子一样简单.</string>
     <string name="app_err_msg">系统异常</string>
     <string name="action_settings">Settings</string>
 </resources>

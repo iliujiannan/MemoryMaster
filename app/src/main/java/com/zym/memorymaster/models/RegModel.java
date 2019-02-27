@@ -2,6 +2,7 @@ package com.zym.memorymaster.models;
 
 import com.google.gson.Gson;
 import com.zym.memorymaster.base.BaseModel;
+import com.zym.memorymaster.base.BaseModelCallBack;
 import com.zym.memorymaster.base.ICallback;
 import com.zym.memorymaster.util.HttpUtil;
 import okhttp3.Call;
@@ -19,14 +20,7 @@ public class RegModel extends BaseModel{
     public static void doReg(final List<String> keys, final List<String> values, final ICallback<BaseModel> callback){
         HttpUtil httpUtil = new HttpUtil();
 
-        httpUtil.doPost(keys, values, "register", new Callback() {
-            RegModel model;
-            @Override
-            public void onFailure(Call call, IOException e) {
-                model.setStatus(0);
-                model.setMsg("server error");
-                callback.onFailure(model);
-            }
+        httpUtil.doPost(keys, values, "register", new BaseModelCallBack(callback) {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -45,15 +39,7 @@ public class RegModel extends BaseModel{
 
         FormBody.Builder form = new FormBody.Builder();
         form.add("userPhone", phone);
-        httpUtil.doPost(form, "get_check_code", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-                RegModel model = new RegModel();
-                model.setStatus(0);
-                model.setMsg("server error");
-                callback.onFailure(model);
-            }
+        httpUtil.doPost(form, "get_check_code", new BaseModelCallBack(callback) {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {

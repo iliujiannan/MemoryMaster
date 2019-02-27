@@ -2,6 +2,7 @@ package com.zym.memorymaster.models;
 
 import com.google.gson.Gson;
 import com.zym.memorymaster.base.BaseModel;
+import com.zym.memorymaster.base.BaseModelCallBack;
 import com.zym.memorymaster.base.ICallback;
 import com.zym.memorymaster.util.HttpUtil;
 import okhttp3.Call;
@@ -18,7 +19,8 @@ import java.util.Map;
 public class LoginModel extends BaseModel {
     private Integer userId;
     private String secretKey;
-    private String currBook;
+    private String currBookId;
+    private Integer completedDays;
 
     public Integer getUserId() {
         return userId;
@@ -36,14 +38,21 @@ public class LoginModel extends BaseModel {
         this.secretKey = secretKey;
     }
 
-    public String getCurrBook() {
-        return currBook;
+    public String getCurrBookId() {
+        return currBookId;
     }
 
-    public void setCurrBook(String currBook) {
-        this.currBook = currBook;
+    public void setCurrBookId(String currBookId) {
+        this.currBookId = currBookId;
     }
 
+    public Integer getCompletedDays() {
+        return completedDays;
+    }
+
+    public void setCompletedDays(Integer completedDays) {
+        this.completedDays = completedDays;
+    }
 
     public static void doLogin(final String userPhone, final String psw, final ICallback<BaseModel> callback) {
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
@@ -53,15 +62,7 @@ public class LoginModel extends BaseModel {
         formBody.add("psw", psw);
 
         HttpUtil httpUtil = new HttpUtil();
-        httpUtil.doPost(formBody, "login", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-                LoginModel model = new LoginModel();
-                model.setStatus(0);
-                model.setMsg("server error");
-                callback.onFailure(model);
-            }
+        httpUtil.doPost(formBody, "login", new BaseModelCallBack(callback) {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {

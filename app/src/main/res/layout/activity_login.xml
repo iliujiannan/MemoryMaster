@@ -129,7 +129,7 @@
 
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="点击登录代表同意小睿科技《隐私协议》"
+                  android:text="@string/app_log_declaration"
                   android:layout_centerHorizontal="true"
 
                   android:textColor="@color/sys_font_gray"
