@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity {
                     startActivity(new Intent(MainActivity.this, FirstWelcomActivity.class));
                     finish();
                 } else {
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
                     finish();
                 }
             }
