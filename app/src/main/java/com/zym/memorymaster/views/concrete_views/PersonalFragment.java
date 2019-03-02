@@ -208,14 +208,14 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
 
     private void updateUserInfromation(final BaseModel result){
         if (secretKey!=null) {
-//            final Bitmap bm = ImageUtil.getHttpBitmap(HttpUtil.baseUri + ((PersonalModel) result).getUserData().getUserPhoto());
+            final Bitmap bm = ImageUtil.getHttpBitmap(HttpUtil.baseUri + ((PersonalModel) result).getUserData().getUserPhoto());
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mPersonalLogARegButton.setText(((PersonalModel) result).getUserData().getUserNickName());
                     mTotalCompletedDays.setText("累计打卡" + ((PersonalModel) result).getUserData().getUserCompletedDays() + "天");
                     mLogoutBt.setVisibility(View.VISIBLE);
-//                    mHead.setImageBitmap(bm);
+                    mHead.setImageBitmap(bm);
 
                 }
             });
