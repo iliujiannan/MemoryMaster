@@ -38,7 +38,7 @@
                     android:gravity="center"
                     android:textColor="@color/sys_gray"
 
-                    android:text="@string/app_bottom_navigation_01"/>
+                    android:text="@string/activity_home_bottom_navigation_01"/>
 
             <TextView
                     android:id="@+id/txt_buy"
@@ -51,7 +51,7 @@
                     android:drawableTop="@drawable/tab_menu_buy"
                     android:gravity="center"
                     android:textColor="@color/sys_gray"
-                    android:text="@string/app_bottom_navigation_02"/>
+                    android:text="@string/activity_home_bottom_navigation_02"/>
 
             <TextView
                     android:id="@+id/txt_add"
@@ -64,7 +64,7 @@
                     android:drawableTop="@drawable/tab_menu_add"
                     android:gravity="center"
                     android:textColor="@color/sys_gray"
-                    android:text="@string/app_bottom_navigation_03"/>
+                    android:text="@string/activity_home_bottom_navigation_03"/>
 
             <TextView
                     android:id="@+id/txt_personal"
@@ -77,7 +77,7 @@
                     android:drawableTop="@drawable/tab_menu_personal"
                     android:gravity="center"
                     android:textColor="@color/sys_gray"
-                    android:text="@string/app_bottom_navigation_04"/>
+                    android:text="@string/activity_home_bottom_navigation_04"/>
 
         </LinearLayout>
 

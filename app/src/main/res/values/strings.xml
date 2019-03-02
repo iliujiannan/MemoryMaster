@@ -3,11 +3,24 @@
     <string name="app_right">Copyright © 2019 Orange Technology. All Rights Reserved</string>
     <string name="app_reg_declaration">点击注册代表同意橘子科技《隐私协议》</string>
     <string name="app_log_declaration">点击登录代表同意橘子科技《隐私协议》</string>
-    <string name="app_bottom_navigation_01">复习</string>
-    <string name="app_bottom_navigation_02">选书</string>
-    <string name="app_bottom_navigation_03">新建</string>
-    <string name="app_bottom_navigation_04">我的</string>
     <string name="app_slogen">记忆，像吃橘子一样简单.</string>
     <string name="app_err_msg">系统异常</string>
+    <string name="activity_home_bottom_navigation_01">复习</string>
+    <string name="activity_home_bottom_navigation_02">选书</string>
+    <string name="activity_home_bottom_navigation_03">新建</string>
+    <string name="activity_home_bottom_navigation_04">我的</string>
+    <string name="fragment_personal_menu_01">记忆曲线</string>
+    <string name="fragment_personal_menu_02">已完成</string>
+    <string name="fragment_personal_menu_03">余额</string>
+    <string name="fragment_personal_button_charge">去充值 ></string>
+    <string name="fragment_personal_button_logout">退出登录</string>
+    <string name="fragment_personal_button_change_psw">修改密码</string>
+    <string name="fragment_personal_button_change_nickname">修改昵称</string>
+    <string name="fragment_personal_button_log">点击登录/注册</string>
+    <string name="fragment_personal_top_hint">累计打卡0天</string>
+
+
+
+
     <string name="action_settings">Settings</string>
 </resources>

@@ -117,7 +117,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             setResult(1);
             finish();
         } else {
-
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         }

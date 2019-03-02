@@ -28,6 +28,7 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
         this.mContext = getActivity();
         this.mInflater = inflater;
         initAllMembersView(mRootView);
+        mSharedPreferences = getActivity().getSharedPreferences(BaseActivity.SP_NAME, getActivity().MODE_PRIVATE);
         return mRootView;
     }
     @Override
