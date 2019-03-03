@@ -42,6 +42,6 @@
     />
     <ImageView
             android:layout_width="240dp"
-            android:layout_height="60dp" app:srcCompat="@drawable/slogen" android:layout_centerVertical="true"
+            android:layout_height="60dp" app:srcCompat="@drawable/bg_slogen" android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" android:id="@+id/imageView"/>
 </RelativeLayout>

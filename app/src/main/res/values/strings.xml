@@ -18,9 +18,9 @@
     <string name="fragment_personal_button_change_nickname">修改昵称</string>
     <string name="fragment_personal_button_log">点击登录/注册</string>
     <string name="fragment_personal_top_hint">累计打卡0天</string>
-
-
-
-
+    <string name="item_book_selector_list_author">作者：唐家三少</string>
+    <string name="item_book_selector_list_desciption">在每一个落雨的下午，悦子都会想起那个小木屋，和景子偶尔的微笑</string>
+    <string name="item_book_selector_list_name">遥远的伤痕——《远山淡影》</string>
+    <string name="item_book_selector_list_loading_num">下载量：1000</string>
     <string name="action_settings">Settings</string>
 </resources>

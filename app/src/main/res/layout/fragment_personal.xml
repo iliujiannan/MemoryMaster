@@ -23,7 +23,7 @@
                         android:layout_height="@dimen/general_photo"
                         android:layout_marginTop="35dp"
                         android:layout_marginStart="30dp"
-                        android:src="@drawable/sys_head"
+                        android:src="@drawable/bg_sys_head"
                 />
 
                 <TextView

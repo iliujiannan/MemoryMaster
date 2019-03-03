@@ -118,7 +118,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
                 selected();
                 mTabBuy.setSelected(true);
                 if(mBuyFragment==null){
-                    mBuyFragment = new BuyFragment();
+                    mBuyFragment = new BookSelectorFragment();
                     transaction.add(R.id.fragment_container,mBuyFragment);
                 }else{
 //                    ((ArticleFragment) mBuyFragment).mUpdateData();

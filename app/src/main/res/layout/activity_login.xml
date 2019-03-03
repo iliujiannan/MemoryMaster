@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="400dp"
-                android:src="@drawable/login_bottom"
+                android:src="@drawable/bg_login_bottom"
         />
 
         <TextView android:layout_width="wrap_content"
