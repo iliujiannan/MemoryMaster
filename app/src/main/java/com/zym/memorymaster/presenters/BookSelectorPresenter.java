@@ -12,7 +12,7 @@ import com.zym.memorymaster.models.BookSelectorModel;
  */
 public class BookSelectorPresenter extends BasePresenter<IBaseView> {
 
-    public void getBooks(final String label){
+    public void getBooks(final String bookType){
         if (!isViewAttached()) {
             return;
         }
@@ -20,7 +20,7 @@ public class BookSelectorPresenter extends BasePresenter<IBaseView> {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                BookSelectorModel.doGetBooks(label, new ICallback<BaseModel>() {
+                BookSelectorModel.doGetBooks(bookType, new ICallback<BaseModel>() {
                     @Override
                     public void onSuccess(BaseModel data) {
 

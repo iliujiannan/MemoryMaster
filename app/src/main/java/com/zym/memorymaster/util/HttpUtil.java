@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Created by 12390 on 2018/8/17.
  */
 public class HttpUtil{
-    public static String baseUri = "http://192.168.43.115:8080/";
+    public static String baseUri = "http://10.102.177.138:8080/";
     private OkHttpClient client;//创建OkHttpClient对象。
 
     public HttpUtil(){

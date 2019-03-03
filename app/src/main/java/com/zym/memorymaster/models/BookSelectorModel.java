@@ -26,13 +26,12 @@ public class BookSelectorModel extends BaseModel{
         this.books = books;
     }
 
-    public static void doGetBooks(String lable, final ICallback<BaseModel> callback){
+    public static void doGetBooks(String bookType, final ICallback<BaseModel> callback){
         HttpUtil httpUtil = new HttpUtil();
 
         FormBody.Builder form = new FormBody.Builder();
-        System.out.println("****lable:" + lable);
-        form.add("bookLabel", lable);
-        httpUtil.doPost(form, "get_books", new BaseModelCallBack(callback) {
+        form.add("bookType", bookType);
+        httpUtil.doPost(form, "get_all_books", new BaseModelCallBack(callback) {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();

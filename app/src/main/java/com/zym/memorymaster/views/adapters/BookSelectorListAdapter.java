@@ -32,7 +32,7 @@ public class BookSelectorListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final Book book = (Book) getItem(position); // 获取当前项的Fruit实例
+        final Book book = (Book) getItem(position);
 
 
         View view = LayoutInflater.from(getContext()).inflate(mResourceId, null);//实例化一个对象

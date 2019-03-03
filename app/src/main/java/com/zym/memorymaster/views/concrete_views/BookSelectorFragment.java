@@ -1,6 +1,8 @@
 package com.zym.memorymaster.views.concrete_views;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -9,8 +11,12 @@ import android.view.View;
 import android.widget.*;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseFragment;
+import com.zym.memorymaster.base.BaseModel;
 import com.zym.memorymaster.models.Book;
+import com.zym.memorymaster.models.BookSelectorModel;
 import com.zym.memorymaster.presenters.BookSelectorPresenter;
+import com.zym.memorymaster.util.HttpUtil;
+import com.zym.memorymaster.util.ImageUtil;
 import com.zym.memorymaster.views.adapters.BookSelectorListAdapter;
 import com.zym.memorymaster.views.adapters.BookSelectorPagerAdapter;
 import com.zym.memorymaster.views.adapters.BookSelectorTurnAdapter;
@@ -60,6 +66,19 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        bookSelectorPresenter = new BookSelectorPresenter();
+        bookSelectorPresenter.attachView(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        updateAllData();
+        super.onResume();
+    }
+
+    @Override
     public int getContentViewId() {
         return R.layout.fragment_book_selector;
     }
@@ -78,7 +97,6 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
         }
 
         changeClassTextColor(0);
-        //updateData();
 
 
 
@@ -146,7 +164,6 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
 
     }
 
-
     private void initDoc(LinearLayout dotContainer) {
         dotContainer.removeAllViews();
 
@@ -167,12 +184,12 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-
     private void showBookDetail(int ind) {
         Intent intent = new Intent(getActivity(), BookDetailActivity.class);
         intent.putExtra("bookId", mBookList.get(mCurrPage).get(ind).getBookInfromationId());
         startActivityForResult(intent, 999);
     }
+
     private void initData() {
         initListViewData();
 
@@ -199,10 +216,69 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
     }
 
 
-    private void updateData(){
+    private void updateAllData(){
         bookSelectorPresenter.getBooks(mCurrPage.toString());
     }
 
+    @Override
+    public void onActionSucc(BaseModel result) {
+        int i = mBookList.get(mCurrPage).size();
+        for (int j = 0; j < i; j++) {
+            mBookList.get(mCurrPage).remove(0);
+        }
+        for (Book book : ((BookSelectorModel) result).getBooks()) {
+            mBookList.get(mCurrPage).add(book);
+        }
+        updatePageData();
+    }
+
+    private void updatePageData(){
+        updateTurnData();
+
+        final List<Bitmap> bitmaps = new Vector<>();
+        for (int i = NUM_PER_TURN; i < mBookList.get(mCurrPage).size(); i++) {
+            Book book = mBookList.get(mCurrPage).get(i);
+            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + book.getBookImgSrc());
+            bitmaps.add(bitmap);
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateListViewData(bitmaps);
+                mTurnAdapterList.get(mCurrPage).notifyDataSetChanged();
+                mPagerAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void updateListViewData(List<Bitmap> bitmaps){
+        List<Book> books = new Vector<>();
+        for (int i = NUM_PER_TURN; i < mBookList.get(mCurrPage).size(); i++) {
+            books.add(mBookList.get(mCurrPage).get(i));
+        }
+        BookSelectorListAdapter mBookCityListAdapter =
+                new BookSelectorListAdapter(mContext, R.layout.item_book_selector_list, books);
+        mBookCityListAdapter.setBitmaps(bitmaps);
+        mBookCityListViewList.get(mCurrPage).setAdapter(mBookCityListAdapter);
+    }
+
+    private void updateTurnData(){
+        List<Book> books = new Vector<>();
+        for (int i = 0; i < NUM_PER_TURN; i++) {
+            books.add(mBookList.get(mCurrPage).get(i));
+        }
+        final List<ImageView> imageViews = new Vector<>();
+        for (Book book : books) {
+            ImageView iv = new ImageView(mContext);
+            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + book.getBookImgSrc());
+            iv.setImageBitmap(bitmap);
+            imageViews.add(iv);
+            mTurnAdapterList.get(mCurrPage).updateData(imageViews);
+
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -228,7 +304,7 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
         public void onPageSelected(int position) {
             changeClassTextColor(position);
             mCurrPage = position;
-            //updateData();
+            updateAllData();
         }
 
         @Override

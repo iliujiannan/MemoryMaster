@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class ImageUtil {
     public static Bitmap getHttpBitmap(String url) {
-        URL httpUrl = null;
+        URL httpUrl;
         Bitmap bitmap = null;
         try {
             httpUrl = new URL(url);
