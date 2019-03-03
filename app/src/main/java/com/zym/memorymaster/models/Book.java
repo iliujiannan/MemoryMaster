@@ -4,7 +4,7 @@ package com.zym.memorymaster.models;
  * Created by 12390 on 2019/3/2.
  */
 public class Book{
-    private Integer bookInfromationId;
+    private Integer bookInformationId;
     private String bookName;
     private Integer bookType;
     private Integer bookRecordsNum;
@@ -13,15 +13,15 @@ public class Book{
     private String bookImgSrc;
     private Integer bookPrice;
     private Integer bookLoadingNum;
-    private String bookChapterNum;
+    private Integer bookChapterNum;
     private String bookDescription;
 
-    public Integer getBookInfromationId() {
-        return bookInfromationId;
+    public Integer getBookInformationId() {
+        return bookInformationId;
     }
 
-    public void setBookInfromationId(Integer bookInfromationId) {
-        this.bookInfromationId = bookInfromationId;
+    public void setBookInformationId(Integer bookInformationId) {
+        this.bookInformationId = bookInformationId;
     }
 
     public String getBookName() {
@@ -88,11 +88,11 @@ public class Book{
         this.bookLoadingNum = bookLoadingNum;
     }
 
-    public String getBookChapterNum() {
+    public Integer getBookChapterNum() {
         return bookChapterNum;
     }
 
-    public void setBookChapterNum(String bookChapterNum) {
+    public void setBookChapterNum(Integer bookChapterNum) {
         this.bookChapterNum = bookChapterNum;
     }
 

@@ -186,7 +186,7 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
 
     private void showBookDetail(int ind) {
         Intent intent = new Intent(getActivity(), BookDetailActivity.class);
-        intent.putExtra("bookId", mBookList.get(mCurrPage).get(ind).getBookInfromationId());
+        intent.putExtra("bookInformationId", mBookList.get(mCurrPage).get(ind).getBookInformationId());
         startActivityForResult(intent, 999);
     }
 

@@ -23,6 +23,7 @@
         <activity android:name=".views.concrete_views.LoginActivity"/>
         <activity android:name=".views.concrete_views.RegActivity"/>
         <activity android:name=".views.concrete_views.HomeActivity"/>
+        <activity android:name=".views.concrete_views.BookDetailActivity"/>
     </application>
 
 </manifest>

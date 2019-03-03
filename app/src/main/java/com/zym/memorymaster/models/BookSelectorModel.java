@@ -36,7 +36,6 @@ public class BookSelectorModel extends BaseModel{
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
                 String s = response.body().string();
-                System.out.println(s);
                 BookSelectorModel bookCityModel = gson.fromJson(s, BookSelectorModel.class);
                 callback.onSuccess(bookCityModel);
             }
