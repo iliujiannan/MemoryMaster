@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        FinishListActivity.getInstance().addActivity(this);
+        ActivityCollector.getInstance().addActivity(this);
 
 
         mSharedPreferences = getSharedPreferences(SP_NAME, MODE_PRIVATE);
