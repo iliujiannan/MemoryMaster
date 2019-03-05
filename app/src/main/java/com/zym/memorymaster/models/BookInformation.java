@@ -3,7 +3,7 @@ package com.zym.memorymaster.models;
 /**
  * Created by 12390 on 2019/3/2.
  */
-public class Book{
+public class BookInformation {
     private Integer bookInformationId;
     private String bookName;
     private Integer bookType;

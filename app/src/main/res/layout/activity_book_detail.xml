@@ -149,7 +149,7 @@
                 android:layout_width="28dp"/>
         <TextView
                 android:id="@+id/book_detail_bootombt"
-                android:text="加入书架"
+                android:text="背诵此书"
                 android:textColor="@color/sys_white"
                 android:textSize="@dimen/sys_mid_font_size"
                 android:layout_centerHorizontal="true"

@@ -16,14 +16,14 @@ import java.util.List;
  * Created by 12390 on 2019/3/2.
  */
 public class BookSelectorModel extends BaseModel{
-    private List<Book> books;
+    private List<BookInformation> bookInformations;
 
-    public List<Book> getBooks() {
-        return books;
+    public List<BookInformation> getBookInformations() {
+        return bookInformations;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBookInformations(List<BookInformation> bookInformations) {
+        this.bookInformations = bookInformations;
     }
 
     public static void doGetBooks(String bookType, final ICallback<BaseModel> callback){
@@ -36,8 +36,8 @@ public class BookSelectorModel extends BaseModel{
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
                 String s = response.body().string();
-                BookSelectorModel bookCityModel = gson.fromJson(s, BookSelectorModel.class);
-                callback.onSuccess(bookCityModel);
+                BookSelectorModel bookSelectorModel = gson.fromJson(s, BookSelectorModel.class);
+                callback.onSuccess(bookSelectorModel);
             }
         });
     }

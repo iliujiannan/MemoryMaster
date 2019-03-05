@@ -5,6 +5,7 @@ import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 import com.zym.memorymaster.dao.greendao.DaoMaster;
 import com.zym.memorymaster.dao.greendao.DaoSession;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -23,7 +24,7 @@ public class ActivityCollector extends Application {
     //为了实现每次使用该类时不创建新的对象而创建的静态对象
     private static ActivityCollector instance;
 
-    private DaoSession daoSession;
+
 
     //构造方法
     private ActivityCollector() {
@@ -63,20 +64,8 @@ public class ActivityCollector extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initGreenDao();
-    }
-
-    private void initGreenDao() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "memorymaster.db");
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
-    }
-
-
-
-    public DaoSession getDaoSession() {
-        return daoSession;
 
     }
+
+
 }

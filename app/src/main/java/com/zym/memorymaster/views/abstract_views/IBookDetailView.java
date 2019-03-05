@@ -11,4 +11,5 @@ public interface IBookDetailView extends IBaseView {
     void onAddSucc(BaseModel result);
 
     void onAddFailed(String msg);
+
 }

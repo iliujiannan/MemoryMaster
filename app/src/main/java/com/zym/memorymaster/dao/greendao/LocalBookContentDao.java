@@ -29,9 +29,11 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
         public final static Property ContentA = new Property(2, String.class, "contentA", false, "content_a");
         public final static Property ContentHint = new Property(3, String.class, "contentHint", false, "content_hint");
         public final static Property RootBookId = new Property(4, Integer.class, "rootBookId", false, "ROOT_BOOK_ID");
-        public final static Property LastRememberTime = new Property(5, String.class, "lastRememberTime", false, "last_remember_time");
+        public final static Property StartRememberTime = new Property(5, String.class, "startRememberTime", false, "last_remember_time");
         public final static Property RememberAmount = new Property(6, Integer.class, "rememberAmount", false, "remember_amount");
         public final static Property RootChapter = new Property(7, Integer.class, "rootChapter", false, "root_chapter");
+        public final static Property IsOkOnMorning = new Property(8, Integer.class, "isOkOnMorning", false, "is_ok_on_morning");
+        public final static Property IsOkOnEve = new Property(9, Integer.class, "isOkOnEve", false, "is_ok_on_eve");
     }
 
 
@@ -52,9 +54,11 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
                 "\"content_a\" TEXT," + // 2: contentA
                 "\"content_hint\" TEXT," + // 3: contentHint
                 "\"ROOT_BOOK_ID\" INTEGER," + // 4: rootBookId
-                "\"last_remember_time\" TEXT," + // 5: lastRememberTime
+                "\"last_remember_time\" TEXT," + // 5: startRememberTime
                 "\"remember_amount\" INTEGER," + // 6: rememberAmount
-                "\"root_chapter\" INTEGER);"); // 7: rootChapter
+                "\"root_chapter\" INTEGER," + // 7: rootChapter
+                "\"is_ok_on_morning\" INTEGER," + // 8: isOkOnMorning
+                "\"is_ok_on_eve\" INTEGER);"); // 9: isOkOnEve
     }
 
     /** Drops the underlying database table. */
@@ -92,9 +96,9 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
             stmt.bindLong(5, rootBookId);
         }
  
-        String lastRememberTime = entity.getLastRememberTime();
-        if (lastRememberTime != null) {
-            stmt.bindString(6, lastRememberTime);
+        String startRememberTime = entity.getStartRememberTime();
+        if (startRememberTime != null) {
+            stmt.bindString(6, startRememberTime);
         }
  
         Integer rememberAmount = entity.getRememberAmount();
@@ -105,6 +109,16 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
         Integer rootChapter = entity.getRootChapter();
         if (rootChapter != null) {
             stmt.bindLong(8, rootChapter);
+        }
+ 
+        Integer isOkOnMorning = entity.getIsOkOnMorning();
+        if (isOkOnMorning != null) {
+            stmt.bindLong(9, isOkOnMorning);
+        }
+ 
+        Integer isOkOnEve = entity.getIsOkOnEve();
+        if (isOkOnEve != null) {
+            stmt.bindLong(10, isOkOnEve);
         }
     }
 
@@ -137,9 +151,9 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
             stmt.bindLong(5, rootBookId);
         }
  
-        String lastRememberTime = entity.getLastRememberTime();
-        if (lastRememberTime != null) {
-            stmt.bindString(6, lastRememberTime);
+        String startRememberTime = entity.getStartRememberTime();
+        if (startRememberTime != null) {
+            stmt.bindString(6, startRememberTime);
         }
  
         Integer rememberAmount = entity.getRememberAmount();
@@ -150,6 +164,16 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
         Integer rootChapter = entity.getRootChapter();
         if (rootChapter != null) {
             stmt.bindLong(8, rootChapter);
+        }
+ 
+        Integer isOkOnMorning = entity.getIsOkOnMorning();
+        if (isOkOnMorning != null) {
+            stmt.bindLong(9, isOkOnMorning);
+        }
+ 
+        Integer isOkOnEve = entity.getIsOkOnEve();
+        if (isOkOnEve != null) {
+            stmt.bindLong(10, isOkOnEve);
         }
     }
 
@@ -166,9 +190,11 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // contentA
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // contentHint
             cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // rootBookId
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // lastRememberTime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // startRememberTime
             cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6), // rememberAmount
-            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7) // rootChapter
+            cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7), // rootChapter
+            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // isOkOnMorning
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9) // isOkOnEve
         );
         return entity;
     }
@@ -180,9 +206,11 @@ public class LocalBookContentDao extends AbstractDao<LocalBookContent, Long> {
         entity.setContentA(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setContentHint(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setRootBookId(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setLastRememberTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setStartRememberTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setRememberAmount(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
         entity.setRootChapter(cursor.isNull(offset + 7) ? null : cursor.getInt(offset + 7));
+        entity.setIsOkOnMorning(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
+        entity.setIsOkOnEve(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
      }
     
     @Override

@@ -12,7 +12,7 @@ import android.widget.*;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseFragment;
 import com.zym.memorymaster.base.BaseModel;
-import com.zym.memorymaster.models.Book;
+import com.zym.memorymaster.models.BookInformation;
 import com.zym.memorymaster.models.BookSelectorModel;
 import com.zym.memorymaster.presenters.BookSelectorPresenter;
 import com.zym.memorymaster.util.HttpUtil;
@@ -47,7 +47,7 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
     private List<ListView> mBookCityListViewList = new ArrayList<>();
     private List<BookSelectorListAdapter> mBookCityListAdapterList = new ArrayList<>();
 
-    private List<List<Book>> mBookList = new Vector<>();
+    private List<List<BookInformation>> mBookList = new Vector<>();
 
 
     //分类
@@ -195,12 +195,12 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
 
     }
     private void initListViewData() {
-        List<Book> books = new Vector<>();
+        List<BookInformation> bookInformations = new Vector<>();
         for (int i = 0; i < 5; i++) {
-            Book book = new Book();
-            books.add(book);
+            BookInformation bookInformation = new BookInformation();
+            bookInformations.add(bookInformation);
         }
-        mBookList.add(books);
+        mBookList.add(bookInformations);
 
     }
 
@@ -226,8 +226,8 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
         for (int j = 0; j < i; j++) {
             mBookList.get(mCurrPage).remove(0);
         }
-        for (Book book : ((BookSelectorModel) result).getBooks()) {
-            mBookList.get(mCurrPage).add(book);
+        for (BookInformation bookInformation : ((BookSelectorModel) result).getBookInformations()) {
+            mBookList.get(mCurrPage).add(bookInformation);
         }
         updatePageData();
     }
@@ -237,8 +237,8 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
 
         final List<Bitmap> bitmaps = new Vector<>();
         for (int i = NUM_PER_TURN; i < mBookList.get(mCurrPage).size(); i++) {
-            Book book = mBookList.get(mCurrPage).get(i);
-            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + book.getBookImgSrc());
+            BookInformation bookInformation = mBookList.get(mCurrPage).get(i);
+            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + bookInformation.getBookImgSrc());
             bitmaps.add(bitmap);
         }
         getActivity().runOnUiThread(new Runnable() {
@@ -252,27 +252,27 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void updateListViewData(List<Bitmap> bitmaps){
-        List<Book> books = new Vector<>();
+        List<BookInformation> bookInformations = new Vector<>();
         for (int i = NUM_PER_TURN; i < mBookList.get(mCurrPage).size(); i++) {
-            books.add(mBookList.get(mCurrPage).get(i));
+            bookInformations.add(mBookList.get(mCurrPage).get(i));
         }
         BookSelectorListAdapter mBookCityListAdapter =
-                new BookSelectorListAdapter(mContext, R.layout.item_book_selector_list, books);
+                new BookSelectorListAdapter(mContext, R.layout.item_book_selector_list, bookInformations);
         mBookCityListAdapter.setBitmaps(bitmaps);
         mBookCityListViewList.get(mCurrPage).setAdapter(mBookCityListAdapter);
     }
 
     private void updateTurnData(){
-        List<Book> books = new Vector<>();
+        List<BookInformation> bookInformations = new Vector<>();
         for (int i = 0; i < NUM_PER_TURN; i++) {
-            books.add(mBookList.get(mCurrPage).get(i));
+            bookInformations.add(mBookList.get(mCurrPage).get(i));
         }
         final List<ImageView> imageViews = new Vector<>();
-        for (Book book : books) {
+        for (BookInformation bookInformation : bookInformations) {
             ImageView iv = new ImageView(mContext);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + book.getBookImgSrc());
+            Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + bookInformation.getBookImgSrc());
             iv.setImageBitmap(bitmap);
             imageViews.add(iv);
             mTurnAdapterList.get(mCurrPage).updateData(imageViews);

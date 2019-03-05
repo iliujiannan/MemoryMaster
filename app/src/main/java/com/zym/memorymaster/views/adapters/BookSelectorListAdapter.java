@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.zym.memorymaster.R;
-import com.zym.memorymaster.models.Book;
+import com.zym.memorymaster.models.BookInformation;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class BookSelectorListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final Book book = (Book) getItem(position);
+        final BookInformation bookInformation = (BookInformation) getItem(position);
 
 
         View view = LayoutInflater.from(getContext()).inflate(mResourceId, null);//实例化一个对象
@@ -41,15 +41,15 @@ public class BookSelectorListAdapter extends ArrayAdapter {
         TextView author = (TextView) view.findViewById(R.id.book_selector_author);
         TextView la = (TextView) view.findViewById(R.id.book_selector_list_load);
         final ImageView img = (ImageView) view.findViewById(R.id.book_selector_list_image);
-        if(book.getBookName()!=null&&bitmaps!=null) {
-            bookName.setText(book.getBookName());
-            description.setText(book.getBookDescription());
-            author.setText(book.getBookAuthor());
+        if(bookInformation.getBookName()!=null&&bitmaps!=null) {
+            bookName.setText(bookInformation.getBookName());
+            description.setText(bookInformation.getBookDescription());
+            author.setText(bookInformation.getBookAuthor());
             img.setImageBitmap(bitmaps.get(position));
-            if(book.getBookLoadingNum()==0){
+            if(bookInformation.getBookLoadingNum()==0){
                 la.setText("0");
             }else {
-                la.setText(book.getBookLoadingNum().toString());
+                la.setText(bookInformation.getBookLoadingNum().toString());
             }
 
 

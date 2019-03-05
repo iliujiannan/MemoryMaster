@@ -40,8 +40,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         mProgressDialog.setCancelable(false);
     }
     protected void showMessage(String msg){
+        Looper.prepare();
         Toast.makeText(getApplicationContext(), msg,
                 Toast.LENGTH_SHORT).show();
+        Looper.loop();
     }
 
 
@@ -100,9 +102,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     }
     @Override
     public void onActionFailed(String msg) {
-        Looper.prepare();
         showMessage(msg);
-        Looper.loop();
     }
 
     @Override

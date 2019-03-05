@@ -4,6 +4,8 @@ import android.os.Handler;
 import com.zym.memorymaster.base.BaseModel;
 import com.zym.memorymaster.base.BasePresenter;
 import com.zym.memorymaster.base.ICallback;
+import com.zym.memorymaster.models.BookDownloadModel;
+import com.zym.memorymaster.models.BookInformation;
 import com.zym.memorymaster.models.BookDetailModel;
 import com.zym.memorymaster.views.abstract_views.IBookDetailView;
 
@@ -35,14 +37,15 @@ public class BookDetailPresenter extends BasePresenter<IBookDetailView> {
         });
     }
 
-    public void addBook(final Integer userId, final String secretKey, final Integer bookInformationId, final int flag){
+    public void addBook(final Integer userId, final String secretKey,
+                        final Integer bookInformationId, final int flag){
         if(!isViewAttached()){
             return;
         }
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                BookDetailModel.doAddBook(userId, secretKey, bookInformationId, flag, new ICallback<BaseModel>() {
+                BookDownloadModel.doAddAndDownloadBook(secretKey, userId, bookInformationId, flag, new ICallback<BaseModel>() {
                     @Override
                     public void onSuccess(BaseModel data) {
                         if(data.getStatus()==1) {
@@ -60,4 +63,5 @@ public class BookDetailPresenter extends BasePresenter<IBookDetailView> {
             }
         });
     }
+
 }

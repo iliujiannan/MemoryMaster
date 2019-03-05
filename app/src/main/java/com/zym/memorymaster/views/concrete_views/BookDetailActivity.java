@@ -3,7 +3,6 @@ package com.zym.memorymaster.views.concrete_views;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,14 +11,18 @@ import android.widget.TextView;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseActivity;
 import com.zym.memorymaster.base.BaseModel;
-import com.zym.memorymaster.models.Book;
+import com.zym.memorymaster.dao.entities.LocalBookContent;
+import com.zym.memorymaster.dao.greendao.DaoSession;
 import com.zym.memorymaster.models.BookDetailModel;
+import com.zym.memorymaster.models.BookDownloadModel;
+import com.zym.memorymaster.models.BookInformation;
 import com.zym.memorymaster.presenters.BookDetailPresenter;
-import com.zym.memorymaster.util.FileUtil;
 import com.zym.memorymaster.util.HttpUtil;
 import com.zym.memorymaster.util.ImageUtil;
 import com.zym.memorymaster.views.abstract_views.IBookDetailView;
 import org.michaelevans.colorart.library.ColorArt;
+
+import java.util.List;
 
 /**
  * Created by 12390 on 2019/3/2.
@@ -44,7 +47,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
     private String secretKey = "";
     private Integer mBookInformationId = -1;
 
-    private Book book;
+    private BookInformation bookInformation;
 
     public static String[] labels = {"全部", "英语", "数学"};
 
@@ -90,13 +93,28 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
 
     @Override
     public void onAddSucc(BaseModel result) {
-        doLoad();
+
+        updateDBAfterAddBook(result);
+        showMessage(result.getMsg());
+
+    }
+
+    private void updateDBAfterAddBook(BaseModel result){
+        DaoSession daoSession = MainActivity.getDaoSession();
+        List<LocalBookContent> bookContentList = ((BookDownloadModel)result).getBookContents();
+        for (LocalBookContent content: bookContentList) {
+            content.setBookContentId(null);
+            daoSession.getLocalBookContentDao().insert(content);
+        }
+
+
     }
 
     @Override
     public void onAddFailed(String msg){
         onActionFailed(msg);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -106,7 +124,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
                 break;
             case R.id.book_detail_bott:
                 if (userId != -1) {
-                    if (mBottBt.getText().toString().equals("加入书架")) {
+                    if (mBottBt.getText().toString().equals("背诵此书")) {
                         addBook(1);
                     } else {
                         addBook(0);
@@ -118,13 +136,16 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
         }
     }
     private void addBook(int flag) {
+        checkPermission();
         bookDetailPresenter.addBook(userId, secretKey, mBookInformationId, flag);
     }
     @Override
     public void onActionSucc(BaseModel result) {
-        book = ((BookDetailModel) result).getBook();
-
-        final Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + book.getBookImgSrc());
+        bookInformation = ((BookDetailModel) result).getBookInformation();
+        updateUiAfterGetBookDetail();
+    }
+    private void updateUiAfterGetBookDetail(){
+        final Bitmap bitmap = ImageUtil.getHttpBitmap(HttpUtil.baseUri + bookInformation.getBookImgSrc());
 
         final ColorArt colorArt = new ColorArt(bitmap);
 
@@ -132,22 +153,22 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
             @Override
             public void run() {
 
-                mTitle.setText(book.getBookName());
-                mAuthor.setText(book.getBookAuthor());
-                mLabel.setText(labels[Integer.valueOf(book.getBookType())]);
-                mCa.setText("共" + book.getBookChapterNum().toString() + "节");
-                mPrice.setText("￥" + book.getBookPrice().toString());
-                mLa.setText(book.getBookLoadingNum().toString() + "次下载");
+                mTitle.setText(bookInformation.getBookName());
+                mAuthor.setText(bookInformation.getBookAuthor());
+                mLabel.setText(labels[Integer.valueOf(bookInformation.getBookType())]);
+                mCa.setText("共" + bookInformation.getBookChapterNum().toString() + "节");
+                mPrice.setText("￥" + bookInformation.getBookPrice().toString());
+                mLa.setText(bookInformation.getBookLoadingNum().toString() + "次下载");
                 mBookImg.setImageBitmap(bitmap);
                 mTopBar.setBackgroundColor(colorArt.getBackgroundColor());
-                String des = book.getBookDescription();
+                String des = bookInformation.getBookDescription();
                 des.replaceAll(" ", "");
                 if (des.length() > 200) {
-                    des = book.getBookDescription().substring(0, 200) + "...";
+                    des = bookInformation.getBookDescription().substring(0, 200) + "...";
                 }
 
                 mDes.setText(des);
-                if (book.getBookPrice() == 0) {
+                if (bookInformation.getBookPrice() == 0) {
                     mBottImg.setImageResource(R.drawable.ic_add2shelf);
                     mBottBt.setText("背诵此书");
                 } else {
@@ -156,47 +177,19 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
                 }
             }
         });
-
     }
 
-
-    private void doLoad() {
-        Looper.prepare();
-        checkPermission();
-
-
-        String fileDir = FileUtil.getRootPath() + FileUtil.mCachePath + book.getBookName();
-        String result = "下载成功";
-        if (FileUtil.createCacheDir(fileDir)) {
-//            System.out.println("mkdir succ");
-            for (int i = 0; i < book.getBookChapterNum(); i++) {
-                Integer si = i + 1;
-                String content = FileUtil.getFileContent(HttpUtil.baseUri + book.getBookPath() + si.toString() + FileUtil.mFileType);
-//                System.out.println(content);
-                if (FileUtil.saveFile(content, fileDir + FileUtil.mFileMid + si.toString() + FileUtil.mFileType)) {
-                    System.out.println(fileDir + FileUtil.mFileMid + si.toString() + FileUtil.mFileType);
-                } else {
-                    result = "下载失败";
-                }
-
-            }
-
-        } else {
-            result = "下载失败";
-        }
-
-        showMessage(result);
-        Looper.loop();
-    }
     private void checkPermission() {
+
+        String msg;
         PackageManager pm = getPackageManager();
         boolean permission = (PackageManager.PERMISSION_GRANTED ==
                 pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "com.ljn.xiaoruireading"));
         if (!permission) {
-            showMessage("未获得文件读取权限，请添加权限后重新打开此应用");
+            msg = "未获得文件读取权限，请添加权限后重新打开此应用";
+            showMessage(msg);
             finish();
-        } else {
-            showMessage("权限已获得");
         }
+
     }
 }

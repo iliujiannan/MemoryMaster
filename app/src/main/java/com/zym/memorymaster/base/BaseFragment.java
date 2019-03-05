@@ -71,13 +71,13 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
 
     @Override
     public void onActionFailed(String msg) {
-        Looper.prepare();
         showMessage(msg);
-        Looper.loop();
     }
 
     protected void showMessage(String msg){
+        Looper.prepare();
         Toast.makeText(getActivity(), msg,
                 Toast.LENGTH_SHORT).show();
+        Looper.loop();
     }
 }
