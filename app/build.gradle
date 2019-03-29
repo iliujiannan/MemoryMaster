@@ -18,9 +18,8 @@ android {
         }
     }
 }
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -31,7 +30,8 @@ dependencies {
     compile 'org.michaelevans.colorart:library:0.0.1'
     compile 'com.githang:status-bar-compat:latest.integration'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'org.greenrobot:greendao:3.2.2' // add library
+    compile 'org.greenrobot:greendao:3.2.2'
+    // add library
     testCompile 'junit:junit:4.12'
 }
 greendao {
@@ -41,4 +41,7 @@ greendao {
     targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
 //    generateTests false //设置为true以自动生成单元测试。
 //    targetGenDirTests 'src/main/java' //应存储生成的单元测试的基本目录。默认为 src / androidTest / java。
+}
+
+repositories {
 }

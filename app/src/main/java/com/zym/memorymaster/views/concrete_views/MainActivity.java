@@ -15,14 +15,12 @@ import com.zym.memorymaster.dao.greendao.DaoSession;
  * Created by 12390 on 2018/8/9.
  */
 public class MainActivity extends BaseActivity {
-    private static DaoSession daoSession;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initGreenDao();
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 mSharedPreferences = getSharedPreferences(SP_NAME, MODE_PRIVATE);
@@ -43,21 +41,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initComponent() {
-        initGreenDao();
-    }
-    private void initGreenDao() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(getContext(), "memorymaster.db");
-        SQLiteDatabase db = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(db);
-        daoSession = daoMaster.newSession();
     }
 
-
-
-    public static DaoSession getDaoSession() {
-        return daoSession;
-
-    }
 
 
 }

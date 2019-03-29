@@ -11,18 +11,15 @@ import android.widget.TextView;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseActivity;
 import com.zym.memorymaster.base.BaseModel;
-import com.zym.memorymaster.dao.entities.LocalBookContent;
-import com.zym.memorymaster.dao.greendao.DaoSession;
 import com.zym.memorymaster.models.BookDetailModel;
 import com.zym.memorymaster.models.BookDownloadModel;
 import com.zym.memorymaster.models.BookInformation;
 import com.zym.memorymaster.presenters.BookDetailPresenter;
+import com.zym.memorymaster.util.DataBaseUtil;
 import com.zym.memorymaster.util.HttpUtil;
 import com.zym.memorymaster.util.ImageUtil;
 import com.zym.memorymaster.views.abstract_views.IBookDetailView;
 import org.michaelevans.colorart.library.ColorArt;
-
-import java.util.List;
 
 /**
  * Created by 12390 on 2019/3/2.
@@ -100,14 +97,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
     }
 
     private void updateDBAfterAddBook(BaseModel result){
-        DaoSession daoSession = MainActivity.getDaoSession();
-        List<LocalBookContent> bookContentList = ((BookDownloadModel)result).getBookContents();
-        for (LocalBookContent content: bookContentList) {
-            content.setBookContentId(null);
-            daoSession.getLocalBookContentDao().insert(content);
-        }
-
-
+        DataBaseUtil.insertWordsToDB(((BookDownloadModel)result).getBookContents());
     }
 
     @Override
