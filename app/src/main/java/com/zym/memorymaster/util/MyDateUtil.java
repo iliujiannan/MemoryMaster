@@ -14,14 +14,12 @@ public class MyDateUtil {
 
 
     public static String[] weekDays = {"", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
-    public static String getDistanceTime(String from, String end) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    public static int getDistanceTime(String from, String end) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date one;
         Date two;
-        long day = 0;
         long hour = 0;
-        long min = 0;
-        long sec = 0;
         try {
             one = df.parse(from);
             two = df.parse(end);
@@ -33,51 +31,17 @@ public class MyDateUtil {
             } else {
                 diff = time1 - time2;
             }
-            day = diff / (24 * 60 * 60 * 1000);
-            hour = (diff / (60 * 60 * 1000) - day * 24);
-            min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+
+            hour = (diff / (60 * 60 * 1000));
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (day != 0) {
-            return day + "天" + hour + "小时" + min + "分";
-        } else {
-            if (day == 0 && hour != 0) {
-                return hour + "小时" + min + "分";
-            } else {
-                return min + "分";
-            }
-        }
+        return (int) hour;
+
     }
-    public static long getDistanceTimeInMinute(String from, String end) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date one;
-        Date two;
-        long day = 0;
-        long hour = 0;
-        long min = 0;
-        long sec = 0;
-        try {
-            one = df.parse(from);
-            two = df.parse(end);
-            long time1 = one.getTime();
-            long time2 = two.getTime();
-            long diff;
-            if (time1 < time2) {
-                diff = time2 - time1;
-            } else {
-                diff = time1 - time2;
-            }
-            day = diff / (24 * 60 * 60 * 1000);
-            hour = (diff / (60 * 60 * 1000) - day * 24);
-            min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return min;
-    }
+
     public static int compareDate(String DATE1, String DATE2) {
 
 
@@ -98,25 +62,25 @@ public class MyDateUtil {
         return 0;
     }
 
-    public static Integer getIndOfDay(String day){
+    public static Integer getIndOfDay(String day) {
         for (int i = 0; i <= 7; i++) {
-            if(weekDays[i].equals(day))
+            if (weekDays[i].equals(day))
                 return i;
         }
         return -1;
     }
 
-    public static String dateToString(Date date){
+    public static String dateToString(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);
     }
 
-    public static String dateToString(Date date, String format){
+    public static String dateToString(Date date, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
 
-    public static Date stringToDate(String date){
+    public static Date stringToDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return sdf.parse(date);
@@ -133,13 +97,19 @@ public class MyDateUtil {
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
         if (w < 0)
             w = 0;
-        if(w==0)
-            w=7;
+        if (w == 0)
+            w = 7;
         return weekDays[w];
     }
 
-    public static String getNextTHTime(){
+    public static String getNextTHTime() {
         Date now = new Date();
-        return dateToString(new Date(now.getTime() + 2*60*60*1000));
+        return dateToString(new Date(now.getTime() + 2 * 60 * 60 * 1000));
+    }
+
+    public static String getNextDay(int base) {
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        return df.format(date.getTime()+base*60*60*1000);
     }
 }

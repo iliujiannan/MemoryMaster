@@ -5,6 +5,9 @@
     <string name="app_log_declaration">点击登录代表同意橘子科技《隐私协议》</string>
     <string name="app_slogen">记忆，像吃橘子一样简单.</string>
     <string name="app_err_msg">系统异常</string>
+    <string name="fragment_review_hintwords_completed">今天的任务已经完成啦！</string>
+    <string name="fragment_review_hintwords_init">点击屏幕查看完整答案</string>
+    <string name="fragment_review_words_completed">任务完成</string>
     <string name="activity_home_bottom_navigation_01">复习</string>
     <string name="activity_home_bottom_navigation_02">选书</string>
     <string name="activity_home_bottom_navigation_03">新建</string>

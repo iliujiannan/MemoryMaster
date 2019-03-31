@@ -19,7 +19,7 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
     private TextView mWordTxt, mAnswerTxt, mShowBt, mRememberBt, mForgetBt, mHintTxt;
 
     private List<LocalBookContent> todayWordsList;
-    private int currWordsIndex = 0;
+    private int currWordsIndex = -1;
     @Override
     public int getContentViewId() {
         return R.layout.fragment_review;
@@ -42,22 +42,20 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
 
     private void initData() {
         todayWordsList = DataBaseUtil.getTodayWordsList();
-        Log.i("ljn", todayWordsList.size()+"");
-        toNextWords();
+        toNextWord();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fragment_review_bt_show:
-                mShowBt.setVisibility(View.GONE);
+                hideTopView();
                 break;
             case R.id.fragment_review_bt_remember:
-                mShowBt.setVisibility(View.VISIBLE);
-                toNextWords();
+                toNextWord();
                 break;
             case R.id.fragment_review_bt_forget:
-                mShowBt.setVisibility(View.GONE);
+                onForget();
                 break;
         }
     }
@@ -68,14 +66,71 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
         initData();
     }
 
-    private void toNextWords(){
-
+    private void hideTopView(){
         if(todayWordsList.size()>currWordsIndex) {
+            mShowBt.setVisibility(View.GONE);
+        }
+    }
+    private void toNextWord(){
+        if(currWordsIndex==-1){
+            if(todayWordsList.size()>0) {
+                showInit();
+                currWordsIndex++;
+                LocalBookContent nextContent = todayWordsList.get(currWordsIndex);
+                updateViewAfterNextWord(nextContent);
+            }else{
+                showCompleted();
+            }
+            return;
+        }
+
+        if(todayWordsList.size()>1) {
             LocalBookContent content = todayWordsList.get(currWordsIndex);
+            updateDBAfterNextWord(content);
+            todayWordsList.remove(content);
+
+            LocalBookContent nextContent = todayWordsList.get(currWordsIndex);
+            updateViewAfterNextWord(nextContent);
+        }else {
+            showCompleted();
+        }
+    }
+
+    private void onForget(){
+        LocalBookContent content = todayWordsList.get(currWordsIndex);
+        todayWordsList.remove(currWordsIndex);
+        todayWordsList.add(content);
+        LocalBookContent nextContent = todayWordsList.get(currWordsIndex);
+        updateViewAfterNextWord(nextContent);
+
+    }
+
+    private void showInit() {
+        mShowBt.setText(R.string.fragment_review_hintwords_init);
+        mShowBt.setClickable(true);
+    }
+
+    private void showCompleted(){
+        currWordsIndex = -1;
+        mShowBt.setVisibility(View.VISIBLE);
+        mShowBt.setText(R.string.fragment_review_hintwords_completed);
+        mShowBt.setClickable(false);
+        mWordTxt.setText(R.string.fragment_review_words_completed);
+    }
+    private void updateDBAfterNextWord(LocalBookContent content) {
+        //更新数据库
+        DataBaseUtil.updateDBAfterRemembered(content);
+    }
+
+    private void updateViewAfterNextWord(LocalBookContent content) {
+        if(content.getContentHint()!="img") {
             mWordTxt.setText(content.getContentA());
             mAnswerTxt.setText(content.getContentQ());
             mHintTxt.setText(content.getContentHint());
-            currWordsIndex++;
+            mShowBt.setVisibility(View.VISIBLE);
+        }else{
+            //展示图
         }
     }
+
 }
