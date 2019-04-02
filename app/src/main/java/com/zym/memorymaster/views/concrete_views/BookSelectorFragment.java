@@ -84,14 +84,14 @@ public class BookSelectorFragment extends BaseFragment implements View.OnClickLi
     }
 
     @Override
-    protected void initAllMembersView(View mRootView) {
-        mPager = (ViewPager) mRootView.findViewById(R.id.book_selector_pager);
+    protected void initAllMembersView(View rootView) {
+        mPager = (ViewPager) rootView.findViewById(R.id.book_selector_pager);
 
         mClassViews = new Vector<>();
         mPagers = new Vector<>();
 
         for (int i = 0; i < TOTAL_CATEGRIES; i++) {
-            TextView tmpv = (TextView) mRootView.findViewById(ids[i]);
+            TextView tmpv = (TextView) rootView.findViewById(ids[i]);
             tmpv.setOnClickListener(this);
             mClassViews.add(tmpv);
         }

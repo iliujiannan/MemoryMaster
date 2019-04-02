@@ -52,17 +52,17 @@ public class PersonalFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    protected void initAllMembersView(View mRootView) {
-        mPersonalLogARegButton = (TextView) mRootView.findViewById(R.id.personal_nickname);
-        mHead = (CircleImageView) mRootView.findViewById(R.id.personal_hp);
-        mTotalCompletedDays = (TextView) mRootView.findViewById(R.id.personal_completed_days);
-        mRechargeBt = (CardView) mRootView.findViewById(R.id.personal_recharge);
-        mChangePswBt = (CardView) mRootView.findViewById(R.id.personal_change_psw);
-        mChangeNicknameBt = (CardView) mRootView.findViewById(R.id.personal_channge_nickname);
-        mLogoutBt = (CardView) mRootView.findViewById(R.id.personal_logout);
-        mLineBt = (RelativeLayout) mRootView.findViewById(R.id.personal_line);
-        mCompletedBt = (RelativeLayout) mRootView.findViewById(R.id.personal_completed);
-        mMoneyBt = (RelativeLayout) mRootView.findViewById(R.id.personal_money);
+    protected void initAllMembersView(View rootView) {
+        mPersonalLogARegButton = (TextView) rootView.findViewById(R.id.personal_nickname);
+        mHead = (CircleImageView) rootView.findViewById(R.id.personal_hp);
+        mTotalCompletedDays = (TextView) rootView.findViewById(R.id.personal_completed_days);
+        mRechargeBt = (CardView) rootView.findViewById(R.id.personal_recharge);
+        mChangePswBt = (CardView) rootView.findViewById(R.id.personal_change_psw);
+        mChangeNicknameBt = (CardView) rootView.findViewById(R.id.personal_channge_nickname);
+        mLogoutBt = (CardView) rootView.findViewById(R.id.personal_logout);
+        mLineBt = (RelativeLayout) rootView.findViewById(R.id.personal_line);
+        mCompletedBt = (RelativeLayout) rootView.findViewById(R.id.personal_completed);
+        mMoneyBt = (RelativeLayout) rootView.findViewById(R.id.personal_money);
 
         mLogoutBt.setVisibility(View.INVISIBLE);
         mMoneyBt.setOnClickListener(this);

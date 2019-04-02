@@ -16,7 +16,7 @@ import android.widget.Toast;
  */
 public abstract class BaseFragment extends Fragment implements IBaseView{
     public abstract int getContentViewId();
-    protected abstract void initAllMembersView(View mRootView);
+    protected abstract void initAllMembersView(View rootView);
     protected Context mContext;
     protected LayoutInflater mInflater;
     protected View mRootView;

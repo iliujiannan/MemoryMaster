@@ -26,16 +26,16 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
     }
 
     @Override
-    protected void initAllMembersView(View mRootView) {
-        mWordTxt = (TextView) mRootView.findViewById(R.id.fragment_review_txt_word);
-        mAnswerTxt = (TextView) mRootView.findViewById(R.id.fragment_review_txt_answer);
-        mShowBt = (TextView) mRootView.findViewById(R.id.fragment_review_bt_show);
+    protected void initAllMembersView(View rootView) {
+        mWordTxt = (TextView) rootView.findViewById(R.id.fragment_review_txt_word);
+        mAnswerTxt = (TextView) rootView.findViewById(R.id.fragment_review_txt_answer);
+        mShowBt = (TextView) rootView.findViewById(R.id.fragment_review_bt_show);
         mShowBt.setOnClickListener(this);
-        mRememberBt = (TextView) mRootView.findViewById(R.id.fragment_review_bt_remember);
+        mRememberBt = (TextView) rootView.findViewById(R.id.fragment_review_bt_remember);
         mRememberBt.setOnClickListener(this);
-        mForgetBt = (TextView) mRootView.findViewById(R.id.fragment_review_bt_forget);
+        mForgetBt = (TextView) rootView.findViewById(R.id.fragment_review_bt_forget);
         mForgetBt.setOnClickListener(this);
-        mHintTxt = (TextView) mRootView.findViewById(R.id.fragment_review_txt_hint);
+        mHintTxt = (TextView) rootView.findViewById(R.id.fragment_review_txt_hint);
 
 
     }
