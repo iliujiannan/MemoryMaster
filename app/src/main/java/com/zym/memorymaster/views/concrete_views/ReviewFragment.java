@@ -123,13 +123,14 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void updateViewAfterNextWord(LocalBookContent content) {
-        if(content.getContentHint()!="img") {
+        if(!content.getContentHint().equals("img")) {
             mWordTxt.setText(content.getContentA());
             mAnswerTxt.setText(content.getContentQ());
             mHintTxt.setText(content.getContentHint());
             mShowBt.setVisibility(View.VISIBLE);
         }else{
             //展示图
+            Log.i("img", content.getContentQ());
         }
     }
 

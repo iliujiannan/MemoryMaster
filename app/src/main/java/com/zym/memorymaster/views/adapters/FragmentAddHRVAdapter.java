@@ -1,11 +1,13 @@
 package com.zym.memorymaster.views.adapters;
 
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.zym.memorymaster.R;
+import com.zym.memorymaster.views.concrete_views.AddFragment;
 
 import java.util.List;
 import java.util.Vector;
@@ -14,13 +16,16 @@ import java.util.Vector;
  * Created by 12390 on 2019/4/2.
  */
 public class FragmentAddHRVAdapter extends RecyclerView.Adapter<FragmentAddHRVAdapter.VH> {
-    private List<Integer> imgSrcs;
-    public FragmentAddHRVAdapter(){
-        imgSrcs = new Vector<>();
+    private List<String> imgPaths;
+    private int pos;
+    public FragmentAddHRVAdapter(int pos){
+        imgPaths = new Vector<>();
+        this.pos = pos;
     }
-    public FragmentAddHRVAdapter(List<Integer> imgSrcs){
-        this.imgSrcs = imgSrcs;
+    public FragmentAddHRVAdapter(List<String> imgPaths){
+        this.imgPaths = imgPaths;
     }
+
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_fragment_add_item_h_rv, parent, false);
@@ -29,7 +34,7 @@ public class FragmentAddHRVAdapter extends RecyclerView.Adapter<FragmentAddHRVAd
 
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        holder.imageView.setImageResource(R.drawable.bg_sys_head);
+        holder.imageView.setImageBitmap(BitmapFactory.decodeFile(imgPaths.get(position)));
         holder.imageView.setTag(position);
         holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -39,22 +44,23 @@ public class FragmentAddHRVAdapter extends RecyclerView.Adapter<FragmentAddHRVAd
             }
         });
     }
-    public void addItem(){
-        if(imgSrcs==null)
-            imgSrcs = new Vector<>();
-        if(imgSrcs.size()>=4)
+    public void addItem(String imgPath){
+        if(imgPaths==null)
+            imgPaths = new Vector<>();
+        if(imgPaths.size()>=4)
             return;
-        imgSrcs.add(imgSrcs.size());
-        notifyItemInserted(imgSrcs.size()-1);
+        imgPaths.add(imgPath);
+        notifyItemInserted(imgPaths.size()-1);
     }
-    public void deleteItem(Integer tag){
+    public void deleteItem(int tag){
         notifyItemRemoved(tag);
-        imgSrcs.remove(tag);
+        imgPaths.remove(tag);
+        AddFragment.paths.get(pos).remove(tag);
     }
 
     @Override
     public int getItemCount() {
-        return imgSrcs.size();
+        return imgPaths.size();
     }
 
     static class VH extends RecyclerView.ViewHolder{

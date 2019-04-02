@@ -62,8 +62,10 @@ public class DataBaseUtil {
             case 7:
                 return false;
         }
-        int distance = MyDateUtil.getDistanceTime(bookContent.getStartRememberTime(), MyDateUtil.dateToString(new Date(), "yyyy-mm-dd"));
-        Log.i("ljn", "" + distance);
+        int distance = MyDateUtil
+                .getDistanceTime(bookContent.getStartRememberTime()
+                        , MyDateUtil.dateToString(new Date()
+                                , "yyyy-mm-dd"));
         return distance <= (baseTime + 12);
 
     }

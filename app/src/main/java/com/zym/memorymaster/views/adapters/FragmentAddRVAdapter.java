@@ -1,7 +1,6 @@
 package com.zym.memorymaster.views.adapters;
 
-import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,24 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.zym.memorymaster.R;
+import com.zym.memorymaster.views.concrete_views.AddFragment;
 
 import java.util.List;
 import java.util.Vector;
+
+import static com.zym.memorymaster.views.concrete_views.AddFragment.tempPosition;
 
 /**
  * Created by 12390 on 2019/4/2.
  */
 public class FragmentAddRVAdapter extends RecyclerView.Adapter<FragmentAddRVAdapter.MyViewHolder> {
     private List<String> titles;
-    private Context context;
+    private AddFragment addFragment;
+    public static final int CHOOSE_PHOTO = 2;
 
-    public FragmentAddRVAdapter(List<String> titles, Context context){
-        this.context = context;
+    private MyViewHolder tempHolder = null;
+    public FragmentAddRVAdapter(List<String> titles, AddFragment addFragment){
+        this.addFragment = addFragment;
         this.titles = titles;
     }
-    public FragmentAddRVAdapter(Context context){
+    public FragmentAddRVAdapter(AddFragment addFragment){
         titles = new Vector<>();
-        this.context = context;
+        this.addFragment = addFragment;
     }
 
     public void addItem(){
@@ -52,18 +56,30 @@ public class FragmentAddRVAdapter extends RecyclerView.Adapter<FragmentAddRVAdap
         initViewHolder(holder, position);
     }
 
-    private void initViewHolder(final MyViewHolder holder, int position){
+
+    private void initViewHolder(final MyViewHolder holder, final int position){
         holder.txTitle.setText(titles.get(position));
         holder.btHAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.hrvAdapter.addItem();
+                tempHolder = holder;
+                tempPosition = position;
+                selectPhotos();
             }
         });
-        holder.hrvAdapter = new FragmentAddHRVAdapter();
+        holder.hrvAdapter = new FragmentAddHRVAdapter(position);
         holder.hRv.setAdapter(holder.hrvAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(addFragment.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         holder.hRv.setLayoutManager(layoutManager);
+    }
+
+    private void selectPhotos(){
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        addFragment.startActivityForResult(intent, CHOOSE_PHOTO);
+    }
+    public void onPhotoSelected(String imagePath){
+        tempHolder.hrvAdapter.addItem(imagePath);
     }
     @Override
     public int getItemCount() {
