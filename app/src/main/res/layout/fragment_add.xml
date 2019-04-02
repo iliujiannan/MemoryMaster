@@ -19,6 +19,14 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/sys_black"
                 android:textSize="@dimen/sys_general_font_size" />
+        <TextView
+                android:id="@+id/fragment_add_bt_completed"
+                android:background="@drawable/ic_completed"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         <View android:layout_width="match_parent"
               android:layout_height="0.4dp"

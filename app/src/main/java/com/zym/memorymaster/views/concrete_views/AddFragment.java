@@ -15,8 +15,8 @@ import java.util.Vector;
  * Created by 12390 on 2019/2/27.
  */
 public class AddFragment extends BaseFragment implements View.OnClickListener{
-    private RecyclerView rv;
-    private FragmentAddRVAdapter rvAdapter;
+    private RecyclerView vRv;
+    private FragmentAddRVAdapter vRvAdapter;
     private TextView btVAdd;
     private TextView btVDelete;
     @Override
@@ -26,11 +26,11 @@ public class AddFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     protected void initAllMembersView(View rootView) {
-        rv = (RecyclerView) rootView.findViewById(R.id.fragment_add_rv);
-        rvAdapter = new FragmentAddRVAdapter();
-        rv.setAdapter(rvAdapter);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rvAdapter.addItem();
+        vRv = (RecyclerView) rootView.findViewById(R.id.fragment_add_rv);
+        vRvAdapter = new FragmentAddRVAdapter(getActivity());
+        vRv.setAdapter(vRvAdapter);
+        vRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        vRvAdapter.addItem();
 
 
         btVAdd = (TextView) rootView.findViewById(R.id.fragment_add_bt_v_add);
@@ -53,10 +53,10 @@ public class AddFragment extends BaseFragment implements View.OnClickListener{
     }
 
     private void deleteItemInRv() {
-        rvAdapter.deleteItem();
+        vRvAdapter.deleteItem();
     }
 
     private void addItemInRv() {
-        rvAdapter.addItem();
+        vRvAdapter.addItem();
     }
 }

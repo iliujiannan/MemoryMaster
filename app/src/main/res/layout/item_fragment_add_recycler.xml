@@ -19,8 +19,13 @@
               android:layout_height="70dp"
               android:background="@color/sys_line"
               android:layout_gravity="center_vertical"/>
+        <android.support.v7.widget.RecyclerView android:layout_width="wrap_content"
+                                                android:id="@+id/fragment_add_item_h_rv"
+                                                android:layout_gravity="center_vertical"
+                                                android:layout_height="match_parent"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_gravity="center_vertical"
+                  android:id="@+id/fragment_add_bt_h_add"
                   android:layout_marginStart="20dp"
                   android:background="@drawable/ic_fragment_add_add"
                   android:layout_height="wrap_content"/>
