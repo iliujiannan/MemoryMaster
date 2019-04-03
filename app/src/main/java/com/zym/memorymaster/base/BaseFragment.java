@@ -80,4 +80,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView{
                 Toast.LENGTH_SHORT).show();
         Looper.loop();
     }
+
+    protected void showMessageWithoutLooper(String msg){
+        Toast.makeText(getActivity(), msg,
+                Toast.LENGTH_SHORT).show();
+    }
 }

@@ -68,7 +68,7 @@ public class AddFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.fragment_add_bt_completed:
                 updateToDB(paths);
-                showMessage("新建成功");
+                showMessageWithoutLooper("新建成功");
                 break;
         }
     }
@@ -82,7 +82,7 @@ public class AddFragment extends BaseFragment implements View.OnClickListener{
                 LocalBookContent bookContent = new LocalBookContent();
                 bookContent.setContentQ(path);
                 bookContent.setRememberAmount(0);
-                bookContent.setRootChapter(key);
+                bookContent.setRootChapter(key+1);
                 bookContent.setContentHint("img");
                 contents.add(bookContent);
             }

@@ -64,16 +64,16 @@ public class DataBaseUtil {
         }
         int distance = MyDateUtil
                 .getDistanceTime(bookContent.getStartRememberTime()
-                        , MyDateUtil.dateToString(new Date()
-                                , "yyyy-mm-dd"));
-        return distance <= (baseTime + 12);
+                        , MyDateUtil.dateToString(new Date()));
+        return distance <= (12*60 - baseTime * 60);
 
     }
 
     public static void updateDBAfterRemembered(LocalBookContent bookContent) {
         DaoSession daoSession = MyApplication.getDaoSession();
         bookContent.setRememberAmount(bookContent.getRememberAmount()+1);
-        daoSession.getLocalBookContentDao().update(bookContent);
+        daoSession.update(bookContent);
+
     }
 
     public static void insertWordsToDB(List<LocalBookContent> bookContentList) {
@@ -81,7 +81,7 @@ public class DataBaseUtil {
         for (LocalBookContent content : bookContentList) {
             content.setStartRememberTime(MyDateUtil.getNextDay(content.getRootChapter()-1));
             content.setBookContentId(null);
-            daoSession.getLocalBookContentDao().insert(content);
+            daoSession.getLocalBookContentDao().insertOrReplace(content);
         }
     }
 }

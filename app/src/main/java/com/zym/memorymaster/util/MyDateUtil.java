@@ -1,6 +1,8 @@
 package com.zym.memorymaster.util;
 
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,10 +18,11 @@ public class MyDateUtil {
     public static String[] weekDays = {"", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
 
     public static int getDistanceTime(String from, String end) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Log.i("ljn", "start = " + from + " end=" + end);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date one;
         Date two;
-        long hour = 0;
+        long minute = 0;
         try {
             one = df.parse(from);
             two = df.parse(end);
@@ -32,13 +35,13 @@ public class MyDateUtil {
                 diff = time1 - time2;
             }
 
-            hour = (diff / (60 * 60 * 1000));
+            minute = (diff / (60 * 1000));
 
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return (int) hour;
+        return (int) minute;
 
     }
 
@@ -107,9 +110,9 @@ public class MyDateUtil {
         return dateToString(new Date(now.getTime() + 2 * 60 * 60 * 1000));
     }
 
-    public static String getNextDay(int base) {
+    public static String getNextDay(long base) {
         Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        return df.format(date.getTime()+base*60*60*1000);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date.getTime()+base*60*60*1000)+ " 00:00:00";
     }
 }
