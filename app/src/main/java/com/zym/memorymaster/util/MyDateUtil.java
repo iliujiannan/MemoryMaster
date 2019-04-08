@@ -18,7 +18,6 @@ public class MyDateUtil {
     public static String[] weekDays = {"", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
 
     public static int getDistanceTime(String from, String end) {
-        Log.i("ljn", "start = " + from + " end=" + end);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date one;
         Date two;
@@ -113,6 +112,12 @@ public class MyDateUtil {
     public static String getNextDay(long base) {
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(date.getTime()+base*60*60*1000)+ " 00:00:00";
+        SimpleDateFormat df2 = new SimpleDateFormat("mm");
+        Integer hour = Integer.valueOf(df2.format(date));
+        String time = "00:00:00";
+        if(hour>=12){
+            time = "12:00:00";
+        }
+        return df.format(date.getTime()+base*60*60*1000)+  time;
     }
 }
