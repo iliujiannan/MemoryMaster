@@ -1,20 +1,19 @@
 package com.zym.memorymaster.views.concrete_views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.view.*;
+import android.widget.*;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseFragment;
 import com.zym.memorymaster.dao.entities.LocalBookContent;
-import com.zym.memorymaster.util.DataBaseUtil;
+import com.zym.memorymaster.util.EbbinghausUtil;
 
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by 12390 on 2019/2/27.
@@ -51,7 +50,7 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void initData() {
-        mTodayWordsList = DataBaseUtil.getTodayWordsList();
+        mTodayWordsList = EbbinghausUtil.getTodayWordsList();
         toNextWord();
     }
 
@@ -111,33 +110,6 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
             showCompleted();
         }
 
-//        if(mCurrWordsIndex==-1){
-//            if(mTodayWordsList.size()>0) {
-//                showInit();
-//                mCurrWordsIndex++;
-//                LocalBookContent nextContent = mTodayWordsList.get(mCurrWordsIndex);
-//                updateViewAfterNextWord(nextContent);
-//            }else{
-//                showCompleted();
-//            }
-//            return;
-//        }
-//
-//        if(mTodayWordsList.size()>1) {
-//            LocalBookContent content = mTodayWordsList.get(mCurrWordsIndex);
-//            updateDBAfterNextWord(content);
-//            mTodayWordsList.remove(content);
-//
-//            LocalBookContent nextContent = mTodayWordsList.get(mCurrWordsIndex);
-//            updateViewAfterNextWord(nextContent);
-//        }else if(mTodayWordsList.size()==1){
-//            LocalBookContent content = mTodayWordsList.get(mCurrWordsIndex);
-//            updateDBAfterNextWord(content);
-//            mTodayWordsList.remove(content);
-//            showCompleted();
-//        }else{
-//            showCompleted();
-//        }
     }
 
     private void onForget() {
@@ -164,7 +136,7 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
 
     private void updateDBAfterNextWord(LocalBookContent content) {
         //更新数据库
-        DataBaseUtil.updateDBAfterRemembered(content);
+        EbbinghausUtil.updateDBAfterRemembered(content);
     }
 
     private void updateViewAfterNextWord(LocalBookContent content) {
@@ -183,6 +155,7 @@ public class ReviewFragment extends BaseFragment implements View.OnClickListener
 
         }
     }
+
 
     private void imgPat() {
         mWordTxt.setText("背图模式");

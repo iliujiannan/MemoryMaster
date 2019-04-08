@@ -8,13 +8,12 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseFragment;
 import com.zym.memorymaster.dao.entities.LocalBookContent;
-import com.zym.memorymaster.util.DataBaseUtil;
+import com.zym.memorymaster.util.EbbinghausUtil;
 import com.zym.memorymaster.views.adapters.FragmentAddRVAdapter;
 
 import java.util.*;
@@ -87,7 +86,7 @@ public class AddFragment extends BaseFragment implements View.OnClickListener{
                 contents.add(bookContent);
             }
         }
-        DataBaseUtil.insertWordsToDB(contents);
+        EbbinghausUtil.insertWordsToDB(contents);
     }
 
     @Override

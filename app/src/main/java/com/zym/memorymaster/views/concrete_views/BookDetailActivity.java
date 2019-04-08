@@ -15,7 +15,7 @@ import com.zym.memorymaster.models.BookDetailModel;
 import com.zym.memorymaster.models.BookDownloadModel;
 import com.zym.memorymaster.models.BookInformation;
 import com.zym.memorymaster.presenters.BookDetailPresenter;
-import com.zym.memorymaster.util.DataBaseUtil;
+import com.zym.memorymaster.util.EbbinghausUtil;
 import com.zym.memorymaster.util.HttpUtil;
 import com.zym.memorymaster.util.ImageUtil;
 import com.zym.memorymaster.views.abstract_views.IBookDetailView;
@@ -97,7 +97,7 @@ public class BookDetailActivity extends BaseActivity implements IBookDetailView,
     }
 
     private void updateDBAfterAddBook(BaseModel result){
-        DataBaseUtil.insertWordsToDB(((BookDownloadModel)result).getBookContents());
+        EbbinghausUtil.insertWordsToDB(((BookDownloadModel)result).getBookContents());
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.Vector;
 /**
  * Created by 12390 on 2019/3/4.
  */
-public class DataBaseUtil {
+public class EbbinghausUtil {
 
     public static List<LocalBookContent> getTodayWordsList() {
         List<LocalBookContent> todayWordsList = new Vector<>();

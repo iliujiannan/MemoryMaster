@@ -1,13 +1,15 @@
 package com.zym.memorymaster.views.concrete_views;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
+import android.view.*;
 import android.widget.TextView;
 import com.zym.memorymaster.R;
 import com.zym.memorymaster.base.BaseActivity;
@@ -15,7 +17,7 @@ import com.zym.memorymaster.base.BaseActivity;
 /**
  * Created by 12390 on 2019/2/26.
  */
-public class HomeActivity extends BaseActivity implements View.OnClickListener{
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView mTabReview;
     private TextView mTabBuy;
@@ -23,9 +25,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
     private TextView mTabPersonal;
 
     private FragmentTransaction transaction;
-    private Fragment mReviewFragment,mAddFragment,mBuyFragment,mPersonalFragment;
-
-
+    private Fragment mReviewFragment, mAddFragment, mBuyFragment, mPersonalFragment;
 
 
     @Override
@@ -38,20 +38,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
 
         requestAllPower();
         setStatusBar(getResources().getColor(R.color.sys_transparent));
+        showDialogue();
     }
 
     @Override
     protected void initComponent() {
         transaction = getFragmentManager().beginTransaction();
 
-        mTabPersonal = (TextView)this.findViewById(R.id.txt_personal);
-        mTabBuy = (TextView)this.findViewById(R.id.txt_buy);
-        mTabAdd = (TextView)this.findViewById(R.id.txt_add);
-        mTabReview = (TextView)this.findViewById(R.id.txt_review);
+        mTabPersonal = (TextView) this.findViewById(R.id.txt_personal);
+        mTabBuy = (TextView) this.findViewById(R.id.txt_buy);
+        mTabAdd = (TextView) this.findViewById(R.id.txt_add);
+        mTabReview = (TextView) this.findViewById(R.id.txt_review);
 
         mTabReview.setSelected(true);
         mReviewFragment = new ReviewFragment();
-        transaction.add(R.id.fragment_container,mReviewFragment);
+        transaction.add(R.id.fragment_container, mReviewFragment);
         transaction.commit();
 
         mTabPersonal.setOnClickListener(this);
@@ -60,41 +61,73 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
         mTabBuy.setOnClickListener(this);
     }
 
-    public void hideAllFragment(FragmentTransaction transaction){
-        if(mReviewFragment!=null) {
+    public void hideAllFragment(FragmentTransaction transaction) {
+        if (mReviewFragment != null) {
             transaction.hide(mReviewFragment);
         }
-        if(mAddFragment!=null) {
+        if (mAddFragment != null) {
             transaction.hide(mAddFragment);
         }
-        if(mBuyFragment!=null){
+        if (mBuyFragment != null) {
             transaction.hide(mBuyFragment);
         }
-        if(mPersonalFragment!=null){
+        if (mPersonalFragment != null) {
             transaction.hide(mPersonalFragment);
         }
 
 
-
     }
-    public void selected(){
+
+    private void showDialogue() {
+
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog mInputDialog = builder.create();
+        mInputDialog.setTitle("是否推迟一天？");
+
+
+        WindowManager m = getWindowManager();
+        Display d = m.getDefaultDisplay();
+        Window window = mInputDialog.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        window.setGravity(Gravity.CENTER);
+        lp.height = (int) (d.getHeight() * 0.3);
+        lp.width = getResources().getDisplayMetrics().widthPixels;
+        window.setAttributes(lp);
+
+        mInputDialog.show();
+    }
+
+    public void selected() {
         mTabBuy.setSelected(false);
         mTabAdd.setSelected(false);
         mTabReview.setSelected(false);
         mTabPersonal.setSelected(false);
     }
+
     @Override
     public void onClick(View v) {
         transaction = getFragmentManager().beginTransaction();
         hideAllFragment(transaction);
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.txt_review:
                 selected();
                 mTabReview.setSelected(true);
-                if(mReviewFragment==null){
+                if (mReviewFragment == null) {
                     mReviewFragment = new ReviewFragment();
-                    transaction.add(R.id.fragment_container,mReviewFragment);
-                }else{
+                    transaction.add(R.id.fragment_container, mReviewFragment);
+                } else {
                     transaction.show(mReviewFragment);
                 }
                 break;
@@ -103,10 +136,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
                 selected();
 
                 mTabAdd.setSelected(true);
-                if(mAddFragment==null){
+                if (mAddFragment == null) {
                     mAddFragment = new AddFragment();
-                    transaction.add(R.id.fragment_container,mAddFragment);
-                }else{
+                    transaction.add(R.id.fragment_container, mAddFragment);
+                } else {
 //                    ((BookcityFragment) mAddFragment).mUpdateData();
                     transaction.show(mAddFragment);
                 }
@@ -117,10 +150,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             case R.id.txt_buy:
                 selected();
                 mTabBuy.setSelected(true);
-                if(mBuyFragment==null){
+                if (mBuyFragment == null) {
                     mBuyFragment = new BookSelectorFragment();
-                    transaction.add(R.id.fragment_container,mBuyFragment);
-                }else{
+                    transaction.add(R.id.fragment_container, mBuyFragment);
+                } else {
 //                    ((ArticleFragment) mBuyFragment).mUpdateData();
                     transaction.show(mBuyFragment);
                 }
@@ -130,10 +163,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener{
             case R.id.txt_personal:
                 selected();
                 mTabPersonal.setSelected(true);
-                if(mPersonalFragment==null){
+                if (mPersonalFragment == null) {
                     mPersonalFragment = new PersonalFragment();
-                    transaction.add(R.id.fragment_container,mPersonalFragment);
-                }else{
+                    transaction.add(R.id.fragment_container, mPersonalFragment);
+                } else {
                     transaction.show(mPersonalFragment);
                 }
                 break;
